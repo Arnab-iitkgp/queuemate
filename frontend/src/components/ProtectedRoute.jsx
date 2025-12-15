@@ -1,3 +1,4 @@
+import { FaWindows } from "react-icons/fa";
 import { Navigate } from "react-router-dom";
 
 export default function ProtectedRoute({ children, role }) {
@@ -5,7 +6,7 @@ export default function ProtectedRoute({ children, role }) {
   const user = JSON.parse(localStorage.getItem("user"));
 
   // If not logged in or role mismatch
-  if (!token || !user || user.role !== role) {
+  if (!token || !user || !role.includes(user.role)) {
     return <Navigate to="/login" />;
   }
 

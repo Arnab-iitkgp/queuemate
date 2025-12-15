@@ -18,10 +18,10 @@ export default function Login() {
         password,
       });
 
-      // ✅ Dispatch login to Redux
+      //   Dispatch login to Redux
       dispatch(login({ user: res.data.user, token: res.data.token }));
 
-      // ✅ Navigate based on role
+      //   Navigate based on role
       if (res.data.user.role === "receptionist") {
         navigate("/receptionist");
       } else if (res.data.user.role === "admin") {
@@ -35,11 +35,32 @@ export default function Login() {
   };
 
   return (
-    <div className="from-slate-50 to-slate-200 flex items-center justify-center px-4 py-16">
-      <div className="bg-white/70 backdrop-blur-md shadow-lg rounded-xl p-8 sm:p-10 w-full max-w-md border border-slate-300">
-        <h2 className="text-3xl font-bold text-slate-800 text-center mb-6">
-          Sign in to QueueMate
-        </h2>
+    <div className="flex items-center justify-center px-4 py-16">
+      <div className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="mb-6 space-y-2 text-center">
+          <p className="text-xs uppercase tracking-[0.28em] text-slate-500">
+            QueueMate
+          </p>
+          <h2 className="text-3xl font-semibold text-slate-900">
+            Sign in
+          </h2>
+          <p className="text-sm text-slate-600">
+            Use your work credentials to access the desk.
+          </p>
+        </div>
+
+        <div className="mb-4 rounded border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs text-left text-slate-700">
+          <div className="flex items-start gap-2">
+            <div className="mt-0.5 h-2 w-2 rounded-full bg-amber-500" />
+            <div className="space-y-1">
+              <p className="font-semibold text-slate-900">Demo access</p>
+              <div className="rounded border border-slate-200 bg-white px-3 py-2 font-mono text-[11px] leading-tight text-slate-800">
+                <div>Email: <span className="font-semibold">test@admin.com</span></div>
+                <div>Password: <span className="font-semibold">123</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
@@ -49,7 +70,7 @@ export default function Login() {
             <input
               type="email"
               placeholder="reception@example.com"
-              className="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+              className="w-full rounded-md border border-slate-300 px-4 py-2 text-slate-900 shadow-sm focus:border-slate-500 focus:outline-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -63,7 +84,7 @@ export default function Login() {
             <input
               type="password"
               placeholder="••••••••"
-              className="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+              className="w-full rounded-md border border-slate-300 px-4 py-2 text-slate-900 shadow-sm focus:border-slate-500 focus:outline-none"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -72,25 +93,26 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full py-2.5 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-200"
+            className="w-full rounded-md bg-slate-900 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
             Continue
           </button>
         </form>
 
-        <div className="mt-6 text-sm text-slate-600 text-center space-y-2">
+
+        <div className="mt-6 space-y-2 text-center text-sm text-slate-600">
           <p>
             Are you an admin?{" "}
             <Link
               to="/signup"
-              className="text-indigo-600 font-medium hover:underline"
+              className="font-semibold text-slate-900 underline-offset-4 hover:underline"
             >
               Create an account
             </Link>
           </p>
           <p>
             Don’t have an account?{" "}
-            <span className="text-indigo-600 font-medium hover:underline cursor-pointer">
+            <span className="cursor-pointer font-semibold text-slate-900 underline-offset-4 hover:underline">
               Contact admin
             </span>
           </p>

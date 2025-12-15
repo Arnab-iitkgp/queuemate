@@ -17,18 +17,21 @@ export default function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_BASE}/api/auth/signup`, {
-        name,
-        clinicName,
-        email,
-        password,
-        adminKey,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_BASE}/api/auth/signup`,
+        {
+          name,
+          clinicName,
+          email,
+          password,
+          adminKey,
+        }
+      );
 
-      // ✅ Use Redux login to store user + token
+      //   Use Redux login to store user + token
       dispatch(login({ user: res.data.user, token: res.data.token }));
 
-      // ✅ Redirect
+      //   Redirect
       navigate("/admin/dashboard");
     } catch (err) {
       alert(err.response?.data?.message || "Signup failed");
@@ -36,32 +39,42 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center px-4">
-      <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-slate-800 text-center mb-6">
-          Admin Signup
-        </h2>
-        <form onSubmit={handleSignup} className="space-y-5">
-          <input
-            type="text"
-            placeholder="Full Name"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Clinic / Shop Name"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
-            value={clinicName}
-            onChange={(e) => setClinicName(e.target.value)}
-            required
-          />
+    <div className="flex items-center justify-center px-4 py-16">
+      <div className="w-full max-w-lg rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="mb-6 space-y-2 text-left">
+          <p className="text-xs uppercase tracking-[0.28em] text-slate-500">
+            Admin setup
+          </p>
+          <h2 className="text-3xl font-semibold text-slate-900">
+            Create an admin account
+          </h2>
+          <p className="text-sm text-slate-600">
+            Only authorized staff should proceed. Keep the admin key secure.
+          </p>
+        </div>
+        <form onSubmit={handleSignup} className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <input
+              type="text"
+              placeholder="Full Name"
+              className="w-full rounded-md border border-slate-300 px-4 py-2 text-slate-900 shadow-sm focus:border-slate-500 focus:outline-none"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Clinic / Desk Name"
+              className="w-full rounded-md border border-slate-300 px-4 py-2 text-slate-900 shadow-sm focus:border-slate-500 focus:outline-none"
+              value={clinicName}
+              onChange={(e) => setClinicName(e.target.value)}
+              required
+            />
+          </div>
           <input
             type="password"
             placeholder="Secret Admin Key"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-slate-300 px-4 py-2 text-slate-900 shadow-sm focus:border-slate-500 focus:outline-none"
             value={adminKey}
             onChange={(e) => setAdminKey(e.target.value)}
             required
@@ -69,7 +82,7 @@ export default function Signup() {
           <input
             type="email"
             placeholder="Email"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-slate-300 px-4 py-2 text-slate-900 shadow-sm focus:border-slate-500 focus:outline-none"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -77,14 +90,14 @@ export default function Signup() {
           <input
             type="password"
             placeholder="Password"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-slate-300 px-4 py-2 text-slate-900 shadow-sm focus:border-slate-500 focus:outline-none"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition"
+            className="w-full rounded-md bg-slate-900 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
             Create Admin Account
           </button>

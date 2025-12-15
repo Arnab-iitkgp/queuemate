@@ -3,37 +3,35 @@ import { HiOutlineMail } from "react-icons/hi";
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-200 text-gray-600 text-sm py-4 mt-auto shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
-        
-        {/* Left: Copyright */}
+    <footer className="mt-auto border-t border-slate-200 bg-white">
+      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-center sm:text-left">
-          © {new Date().getFullYear()} Arnab Chakraborty. All rights reserved.
+          © {new Date().getFullYear()} QueueMate. Built for calm, dependable
+          operations.
         </p>
 
-        {/* Right: Social Links with Icons */}
-        <div className="flex gap-5 text-lg">
+        <div className="flex justify-center gap-4 text-slate-500 sm:justify-end">
           <a
-            href="https://github.com/Arnab-iitkgp" // 
+            href="https://github.com/Arnab-iitkgp"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-indigo-600 transition flex items-center gap-1"
+            className="flex items-center gap-2 transition hover:text-slate-800"
           >
-            <FaGithub /> GitHub
+            <FaGithub aria-hidden /> GitHub
           </a>
           <a
-            href="mailto:mrarnab7475@gmail.com" 
-            className="hover:text-indigo-600 transition flex items-center gap-1"
+            href="mailto:mrarnab7475@gmail.com"
+            className="flex items-center gap-2 transition hover:text-slate-800"
           >
-            <HiOutlineMail /> Gmail
+            <HiOutlineMail aria-hidden /> Email
           </a>
           <a
-            href="https://www.linkedin.com/in/Arnab-dev" 
+            href="https://www.linkedin.com/in/Arnab-dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-indigo-600 transition flex items-center gap-1"
+            className="flex items-center gap-2 transition hover:text-slate-800"
           >
-            <FaLinkedin /> LinkedIn
+            <FaLinkedin aria-hidden /> LinkedIn
           </a>
         </div>
       </div>

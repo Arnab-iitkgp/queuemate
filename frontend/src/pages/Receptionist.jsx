@@ -46,11 +46,16 @@ export default function Receptionist() {
   };
 
   const handleResetQueue = async () => {
-    const confirmReset = window.confirm("Are you sure you want to reset the queue?");
+    const confirmReset = window.confirm(
+      "Are you sure you want to reset the queue?"
+    );
     if (!confirmReset) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_BASE}/api/token/reset`, authHeaders);
+      await axios.delete(
+        `${import.meta.env.VITE_API_BASE}/api/token/reset`,
+        authHeaders
+      );
       dispatch(resetQueueState());
       toast.success("🧹 Queue has been reset");
     } catch (err) {
@@ -83,60 +88,96 @@ export default function Receptionist() {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col items-center bg-white px-4 py-8 text-gray-800 overflow-hidden">
-      <h1 className="text-4xl font-bold mb-4 text-blue-600">Receptionist Panel</h1>
-
-      {currentToken ? (
-        <div className="text-2xl mb-2">
-          ✅ Last Called Token:{" "}
-          <span className="font-bold text-green-600">#{currentToken.number}</span>{" "}
-          <span className="text-gray-500 italic">({currentToken.name})</span>
-        </div>
-      ) : (
-        <h2 className="text-lg text-gray-500 mb-2">No token called yet.</h2>
-      )}
-
-      <button
-        onClick={handleCallNext}
-        className={`px-6 py-3 mt-4 text-white font-semibold rounded shadow ${
-          loading ? "bg-blue-300 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-        }`}
-        disabled={loading}
-      >
-        {loading ? "Calling..." : "📞 Call Next Patient"}
-      </button>
-
-      {userRole === "admin" && (
-        <button
-          onClick={handleResetQueue}
-          className="mt-4 px-5 py-2 bg-red-600 text-white rounded hover:bg-red-700 shadow transition"
-        >
-          🧹 Reset Queue
-        </button>
-      )}
-
-      {error && <p className="mt-4 text-red-500">{error}</p>}
-
-      <div className="mt-8 w-full max-w-md bg-gray-100 rounded-lg p-4 flex flex-col">
-        <h3 className="text-lg font-semibold mb-2 text-gray-700">
-          📋 Upcoming Tokens:
-        </h3>
-
-        {upcomingTokens.length > 0 ? (
-          <div className="flex flex-col gap-2 overflow-y-auto pr-1" style={{ maxHeight: "18rem" }}>
-            {upcomingTokens.map((tokenObj, idx) => (
-              <div
-                key={idx}
-                className="flex items-center justify-between bg-blue-50 text-blue-800 px-4 py-2 rounded-lg font-medium shadow w-full"
-              >
-                <span className="text-lg font-semibold">#{tokenObj.number}</span>
-                <span className="text-sm text-blue-600 italic">{tokenObj.name}</span>
-              </div>
-            ))}
+    <div className="px-4 py-10 text-slate-900">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8">
+        <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
+              Reception
+            </p>
+            <h1 className="text-3xl font-semibold text-slate-900">
+              Queue control
+            </h1>
+            <p className="text-sm text-slate-600">
+              Call the next patient and keep the waiting area informed.
+            </p>
           </div>
-        ) : (
-          <p className="text-gray-500 italic text-sm">No tokens in queue</p>
-        )}
+          {userRole === "admin" && (
+            <button
+              onClick={handleResetQueue}
+              className="self-start rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-slate-400"
+            >
+              Reset queue
+            </button>
+          )}
+        </header>
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          <section className="lg:col-span-2 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+                  Now serving
+                </p>
+                {currentToken ? (
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-6xl font-semibold text-slate-900">
+                      #{currentToken.number}
+                    </span>
+                    <span className="text-sm text-slate-600">
+                      {currentToken.name}
+                    </span>
+                  </div>
+                ) : (
+                  <p className="text-sm text-slate-600">
+                    No token has been called yet.
+                  </p>
+                )}
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={handleCallNext}
+                  className="rounded-md bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-500"
+                  disabled={loading}
+                >
+                  {loading ? "Calling…" : "Call next patient"}
+                </button>
+              </div>
+            </div>
+            {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+          </section>
+
+          <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+                  Queue
+                </p>
+                <h3 className="text-lg font-semibold text-slate-900">
+                  Upcoming tokens
+                </h3>
+              </div>
+              <span className="text-xs font-medium text-slate-500">
+                {upcomingTokens.length} waiting
+              </span>
+            </div>
+            {upcomingTokens.length > 0 ? (
+              <div className="mt-4 space-y-2 overflow-y-auto pr-1" style={{ maxHeight: "18rem" }}>
+                {upcomingTokens.map((tokenObj, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between rounded-md border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-800"
+                  >
+                    <span className="text-lg font-semibold">#{tokenObj.number}</span>
+                    <span className="text-sm text-slate-600">{tokenObj.name}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-4 text-sm text-slate-600">No tokens in queue.</p>
+            )}
+          </section>
+        </div>
       </div>
     </div>
   );

@@ -12,43 +12,46 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-md px-4 sm:px-6 py-3 flex justify-between items-center border-b border-slate-200 text-slate-800">
-      {/* Logo */}
-      <Link
-        to="/"
-        className="text-base sm:text-xl font-semibold text-indigo-600 hover:text-indigo-700 whitespace-nowrap"
-      >
-        🧾 QueueMate
-      </Link>
-
-      {/* Right Section */}
-      {user && (
-        <div className="flex items-center gap-2 sm:gap-3 max-w-[80%] sm:max-w-none overflow-hidden">
-          {/* Avatar */}
-          <div className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full bg-indigo-600 text-white font-semibold text-sm shrink-0">
-            {user.name?.charAt(0).toUpperCase()}
+    <header className="border-b border-slate-200 bg-white/95 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 text-slate-900">
+        <Link to="/" className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-md  text-sm font-semibold uppercase tracking-wide text-white">
+            <img src="/logo.png" alt="QueueMate" className="h-10 w-10" />
           </div>
-
-          {/* Name + Role - hidden on mobile */}
-          <div className="hidden sm:flex flex-col leading-tight truncate max-w-[100px] sm:max-w-none">
-            <span className="text-sm font-medium truncate">{user.name}</span>
-            <span className="text-xs capitalize text-slate-500 truncate">{user.role}</span>
+          <div className="leading-tight">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-600">
+              QueueMate
+            </p>
+            <p className="text-xs text-slate-500">Real-time queue control</p>
           </div>
+        </Link>
 
-          {/* Dashboard button (admin only) */}
-          {user.role === "admin" && (
-            <Link
-              to="/admin/dashboard"
-              className="text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-md shadow-sm transition whitespace-nowrap"
-            >
-              📊 Dashboard
-            </Link>
-          )}
+        {/* Right Section */}
+        {user && (
+          <div className="flex items-center gap-3 overflow-hidden">
+            <div className="hidden text-right sm:block">
+              <p className="text-sm font-semibold text-slate-900">{user.name}</p>
+              <p className="text-xs uppercase tracking-wide text-slate-500">
+                {user.role}
+              </p>
+            </div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white font-semibold uppercase">
+              {user.name?.charAt(0).toUpperCase()}
+            </div>
 
-          {/* Logout Button */}
-          <LogoutButton onClick={handleLogout} />
-        </div>
-      )}
+            {user.role === "admin" && (
+              <Link
+                to="/admin/dashboard"
+                className="hidden rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-800 shadow-sm transition hover:border-slate-400 sm:inline-flex"
+              >
+                Dashboard
+              </Link>
+            )}
+
+            <LogoutButton onClick={handleLogout} />
+          </div>
+        )}
+      </div>
     </header>
   );
 }

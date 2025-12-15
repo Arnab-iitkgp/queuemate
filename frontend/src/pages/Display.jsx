@@ -38,29 +38,29 @@ export default function Display() {
   }, []);
 
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white px-4">
+    <div className="flex h-screen w-full flex-col bg-neutral-950 text-white">
       <Link
         to="/"
-        className="absolute top-4 left-4 text-sm sm:text-base px-3 py-1.5 bg-transparent text-gray-200 rounded-md shadow hover:text-red-400 transition"
+        className="absolute left-4 top-4 rounded-md border border-neutral-700 px-3 py-1.5 text-xs font-semibold text-neutral-200 transition hover:border-neutral-500"
       >
-        ⬅ Exit
+        Exit
       </Link>
-      <h1 className="text-5xl sm:text-6xl font-extrabold mb-8 text-yellow-400 tracking-widest drop-shadow">
-        🎫 Now Serving
-      </h1>
 
-      {currentToken ? (
-        <div className="text-[120px] sm:text-[160px] font-extrabold text-green-400 animate-pulse drop-shadow-lg">
-          #{currentToken}
-        </div>
-      ) : (
-        <div className="text-3xl text-gray-300">Waiting for first token...</div>
-      )}
-
-      {/* Optional Branding or Footer */}
-      <p className="absolute bottom-4 text-sm text-gray-500">
-        Powered by QueueMate 🧾
-      </p>
+      <div className="m-auto flex w-full max-w-4xl flex-col items-center gap-6 px-6 text-center">
+        <p className="text-sm uppercase tracking-[0.32em] text-neutral-400">
+          Now serving
+        </p>
+        {currentToken ? (
+          <div className="text-[120px] font-semibold leading-none text-white sm:text-[160px]">
+            #{currentToken}
+          </div>
+        ) : (
+          <div className="text-2xl text-neutral-400">
+            Waiting for first token…
+          </div>
+        )}
+        <p className="text-sm text-neutral-500">Please proceed when your number appears.</p>
+      </div>
     </div>
   );
 }

@@ -29,12 +29,17 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route
           path="/admin/dashboard"
           element={
-            <ProtectedRoute role="admin">
+            <ProtectedRoute role ={["admin"]}>
               <AdminDashboard />
             </ProtectedRoute>
           }
         />
-        <Route path="/receptionist" element={<Receptionist />} />
+        <Route path="/receptionist" 
+        element={ 
+          <ProtectedRoute role={["admin","receptionist"]}>
+            <Receptionist />
+          </ProtectedRoute>
+        } />
         <Route path="/patient" element={<Patient />} />
         <Route path="/display" element={<Display />} />
       </Routes>
